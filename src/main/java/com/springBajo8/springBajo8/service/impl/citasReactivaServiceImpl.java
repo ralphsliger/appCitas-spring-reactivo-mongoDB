@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+
 @Service
 public class citasReactivaServiceImpl implements IcitasReactivaService {
 
@@ -45,7 +47,6 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
         return this.IcitasReactivaRepository.findByIdPaciente(idPaciente);
     }
 
-
     @Override
     public Flux<citasDTOReactiva> findAll() {
         return this.IcitasReactivaRepository.findAll();
@@ -55,4 +56,11 @@ public class citasReactivaServiceImpl implements IcitasReactivaService {
     public Mono<citasDTOReactiva> findById(String id) {
         return this.IcitasReactivaRepository.findById(id);
     }
+
+    @Override
+    public Flux<citasDTOReactiva> findAllByFechaReservaCitaAndHoraReservaCita(LocalDate fechaReservaCita, String horaReservaCita) {
+        return this.IcitasReactivaRepository.findAllByFechaReservaCitaAndHoraReservaCita(fechaReservaCita, horaReservaCita);
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.springBajo8.springBajo8.web;
 
 import com.springBajo8.springBajo8.domain.citasDTOReactiva;
 import com.springBajo8.springBajo8.service.IcitasReactivaService;
+import com.springBajo8.springBajo8.utils.UtilsMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,9 +49,11 @@ public class citasReactivaResource {
         return this.icitasReactivaService.findAll();
     }
 
-    @GetMapping
-    private Mono<ResponseEntity<citasDTOReactiva>> cancelarcita(){
-        return null;
+    @GetMapping(value = "/citasReactivas/{fecha}/{hora}")
+    private Flux<citasDTOReactiva> findAllByHourAndDate(@PathVariable(value = "fecha") String fecha, @PathVariable(value = "hora") String hora) {
+        return this.icitasReactivaService.findAllByFechaReservaCitaAndHoraReservaCita(UtilsMethods.StringToLocalDate(fecha), hora);
     }
+
+
 
 }
