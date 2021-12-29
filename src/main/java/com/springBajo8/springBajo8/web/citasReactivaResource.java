@@ -54,6 +54,15 @@ public class citasReactivaResource {
         return this.icitasReactivaService.findAllByFechaReservaCitaAndHoraReservaCita(UtilsMethods.StringToLocalDate(fecha), hora);
     }
 
+    @PutMapping("/citasReactivas/cancelar/{id}")
+    private Mono<ResponseEntity<citasDTOReactiva>> cancel(@PathVariable("id") String id) {
+        return this.icitasReactivaService.findById(id).flatMap(citasDTOReactiva -> {
+            citasDTOReactiva.setEstadoCita(false);
+            return this.icitasReactivaService.save(citasDTOReactiva);
+        }).flatMap(citasDTOReactiva -> Mono.just(ResponseEntity.ok(citasDTOReactiva))).switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+
+    }
+
 
 
 }
