@@ -58,6 +58,7 @@ public class citasReactivaResource {
     private Mono<ResponseEntity<citasDTOReactiva>> cancel(@PathVariable("id") String id) {
         return this.icitasReactivaService.findById(id).flatMap(citasDTOReactiva -> {
             citasDTOReactiva.setEstadoCita(false);
+            citasDTOReactiva.setEstadoReservaCita("Cancelada");
             return this.icitasReactivaService.save(citasDTOReactiva);
         }).flatMap(citasDTOReactiva -> Mono.just(ResponseEntity.ok(citasDTOReactiva))).switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
 
