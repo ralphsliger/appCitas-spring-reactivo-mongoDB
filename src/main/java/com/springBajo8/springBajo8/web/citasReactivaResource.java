@@ -48,4 +48,9 @@ public class citasReactivaResource {
         return this.icitasReactivaService.findAll();
     }
 
+    @GetMapping
+    private Mono<ResponseEntity<citasDTOReactiva>> cancelarcita(){
+        return null;
+    }
+
 }
