@@ -63,6 +63,31 @@ public class citasReactivaResource {
 
     }
 
+    @GetMapping("/citasReactivas/nombreMedico/{id}")
+    private Mono<citasDTOReactiva> getMedicoNames(@PathVariable("id") String id) {
+        Mono<citasDTOReactiva> infoMedico = this.icitasReactivaService.findById(id).flatMap(citasDTOReactiva -> {
+            citasDTOReactiva medico = new citasDTOReactiva();
+            medico.setNombreMedico(citasDTOReactiva.getNombreMedico());
+            medico.setApellidosMedico(citasDTOReactiva.getApellidosMedico());
+            return Mono.just(medico);
+        });
+        return infoMedico;
+    }
+
+    @GetMapping("/citasReactivas/padecimientos/{id}/paciente")
+    private Mono<citasDTOReactiva> getPadecimientosYtratamiento(@PathVariable("id") String id) {
+        Mono<citasDTOReactiva> infoPaciente = this.icitasReactivaService.findById(id).flatMap(citasDTOReactiva -> {
+            citasDTOReactiva paciente = new citasDTOReactiva();
+            paciente.setPadecimientos(citasDTOReactiva.getPadecimientos());
+            paciente.setTratamientos(citasDTOReactiva.getTratamientos());
+            return Mono.just(paciente);
+        });
+        return infoPaciente;
+    }
+
+
+
+
 
 
 }
